@@ -1,6 +1,9 @@
 ---
 server:
   port: 8888
+#security:
+#  basic:
+#    enabled: false
 spring:
   cloud:
     config:
@@ -19,9 +22,11 @@ spring:
                 uri: https://github.com/RuchiraGamage/performanceTestConfig # alt
                 search-paths:
                  - 'station*'
-security:
-  basic:
-    enabled: true
-  user:
-    name: pluralsight
-    password: pluralsight
+#  security:
+##    basic:
+##      enabled: true
+#    user:
+#      name: test
+#      password: test
+
+
