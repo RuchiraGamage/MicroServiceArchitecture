@@ -1,6 +1,7 @@
 package com.ruchira.configClient;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * Created by Ruchira on 10/22/2020.
  */
 @Controller
+@RefreshScope
 public class RateController {
     @Value("${rate}")
     String rate;
