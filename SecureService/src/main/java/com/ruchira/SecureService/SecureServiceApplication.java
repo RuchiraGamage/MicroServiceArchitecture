@@ -1,8 +1,12 @@
 package com.ruchira.SecureService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.ResourceServerProperties;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
+import org.springframework.security.oauth2.provider.token.ResourceServerTokenServices;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,11 +17,19 @@ import java.util.ArrayList;
 @EnableResourceServer
 public class SecureServiceApplication {
 
+    @Autowired
+    private ResourceServerProperties sso;
+
+    public ResourceServerTokenServices myUserInfoTokenService() {
+        return new CustomUserInfoTokenServices(sso.getUserInfoUri(),sso.getClientId());
+    }
+
     public static void main(String[] args) {
         SpringApplication.run(SecureServiceApplication.class, args);
     }
 
     @GetMapping("/tolldata")
+    @PreAuthorize("hasRole('ROLE_OPERATOR')")
     public ArrayList<TollUsage> getTollData() {
 
         TollUsage instance1 = new TollUsage("200", "station150", "B65GT1W", "2016-09-30T06:31:22");
